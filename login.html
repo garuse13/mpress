@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>로그인 | mpress</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>🔐 로그인</h1>
+    <input type="text" id="username" placeholder="사용자 이름" class="input"><br><br>
+    <input type="password" id="password" placeholder="비밀번호" class="input"><br><br>
+    <button class="btn" onclick="login()">로그인</button>
+    <p style="margin-top: 1rem;">계정이 없으신가요? <a href="signup.html">회원가입</a></p>
+  </div>
+  <script>
+    function login() {
+      const user = document.getElementById('username').value;
+      const pass = document.getElementById('password').value;
+      const data = JSON.parse(localStorage.getItem("users") || "{}");
+
+      if (data[user] && data[user].password === pass) {
+        localStorage.setItem("currentUser", user);
+        localStorage.setItem("balance", data[user].balance);
+        location.href = "index.html";
+      } else {
+        alert("로그인 실패: 사용자명 또는 비밀번호 확인");
+      }
+    }
+  </script>
+</body>
+</html>

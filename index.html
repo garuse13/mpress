@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>mpress</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>🎰 mpress 도박 천국</h1>
+    <div class="balance">현재 잔액: ₩<span id="balance">0</span></div>
+    <a href="plinko.html" class="btn">플링코</a>
+    <a href="crash.html" class="btn">크래시</a>
+    <a href="dice.html" class="btn">주사위</a>
+    <button onclick="addBalance()" class="btn">💰 잔액 충전</button>
+    
+<button id="earnBtn" onclick="earnMoney()" class="btn">👆 수동 돈벌기</button>
+
+    <button onclick="logout()" class="btn logout">🚪 로그아웃</button>
+  </div>
+  <script>
+    const currentUser = localStorage.getItem("currentUser");
+    if (!currentUser) location.href = "login.html";
+
+    const allUsers = JSON.parse(localStorage.getItem("users") || "{}");
+    const userData = allUsers[currentUser];
+    if (userData) {
+      document.getElementById("balance").innerText = userData.balance;
+      localStorage.setItem("balance", userData.balance);
+    }
+
+    function logout() {
+      localStorage.removeItem("currentUser");
+      location.href = "login.html";
+    }
+
+    function addBalance() {
+      let add = prompt("충전할 금액을 입력하세요", "1000");
+      if (add && !isNaN(add)) {
+        userData.balance += parseInt(add);
+        localStorage.setItem("balance", userData.balance);
+        document.getElementById("balance").innerText = userData.balance;
+        allUsers[currentUser] = userData;
+        localStorage.setItem("users", JSON.stringify(allUsers));
+      }
+    }
+  
+let canEarn = true;
+function earnMoney() {
+  if (!canEarn) return alert("잠시 기다려주세요!");
+
+  canEarn = false;
+  setTimeout(() => canEarn = true, 500);
+
+  const add = Math.random() < 0.5 ? 5 : 10;
+  const currentUser = localStorage.getItem("currentUser");
+  const users = JSON.parse(localStorage.getItem("users") || "{}");
+  const user = users[currentUser];
+
+  if (user) {
+    user.balance += add;
+    users[currentUser] = user;
+    localStorage.setItem("users", JSON.stringify(users));
+    localStorage.setItem("balance", user.balance);
+    document.getElementById("balance").innerText = user.balance;
+  }
+}
+
+  </script>
+</body>
+</html>

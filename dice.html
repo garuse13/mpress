@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>주사위 | mpress</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>주사위</h1>
+    <p>잔액: ₩<span id="balance">0</span></p>
+    <div class="bet-controls">
+      <button onclick="adjustBet(-100)">-</button>
+      <span id="betAmount">100</span>
+      <button onclick="adjustBet(100)">+</button>
+    </div>
+    <button class="btn play" onclick="rollDice()">Roll</button>
+    <div class="result" id="result">0.00</div>
+    <a href="index.html" class="btn">뒤로 가기</a>
+  </div>
+  <script src="dice.js"></script>
+</body>
+</html>

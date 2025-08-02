@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>회원가입 | mpress</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>📝 회원가입</h1>
+    <input type="text" id="username" placeholder="사용자 이름" class="input"><br><br>
+    <input type="password" id="password" placeholder="비밀번호" class="input"><br><br>
+    <button class="btn" onclick="signup()">가입하기</button>
+    <p style="margin-top: 1rem;">이미 계정이 있으신가요? <a href="login.html">로그인</a></p>
+  </div>
+  <script>
+    function signup() {
+      const user = document.getElementById('username').value;
+      const pass = document.getElementById('password').value;
+
+      let data = JSON.parse(localStorage.getItem("users") || "{}");
+      if (data[user]) return alert("이미 존재하는 사용자입니다!");
+
+      data[user] = { password: pass, balance: 1000 };
+      localStorage.setItem("users", JSON.stringify(data));
+      alert("회원가입 완료! 기본 ₩1000 지급됨");
+      location.href = "login.html";
+    }
+  </script>
+</body>
+</html>
